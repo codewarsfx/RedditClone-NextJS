@@ -1,0 +1,93 @@
+import { AuthModalState } from "@/atoms/authModalAtom";
+import { Button, Flex, Input, Text } from "@chakra-ui/react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useSetRecoilState } from "recoil";
+
+const Login: React.FC = () => {
+	const setAuthModalState = useSetRecoilState(AuthModalState);
+	const [inputValue, setInputValue] = useState({
+		email: "",
+		password: "",
+	});
+
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setInputValue((prev) => ({
+			...prev,
+			[event.target.name]: event.target.value,
+		}));
+	};
+
+	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {};
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<Input
+				name='email'
+				required
+				type='email'
+				placeholder='email'
+				fontSize='10pt'
+				bg='gray.50'
+				_placeholder={{
+					color: "gray.500",
+				}}
+				mb='2'
+				height='34px'
+				_hover={{
+					border: "1px solid",
+					borderColor: "blue.500",
+				}}
+				_focus={{
+					outline: "none",
+					border: "1px solid",
+					borderColor: "blue.500",
+				}}
+				onChange={handleChange}
+				value={inputValue.email}
+			/>
+			<Input
+				name='password'
+				required
+				type='password'
+				placeholder='password '
+				fontSize='10pt'
+				bg='gray.50'
+				_placeholder={{
+					color: "gray.500",
+				}}
+				mb='2'
+				height='34px'
+				_hover={{
+					bg: "white",
+					border: "1px solid",
+					borderColor: "blue.500",
+				}}
+				_focus={{
+					outline: "none",
+					border: "1px solid",
+					borderColor: "blue.500",
+				}}
+				onChange={handleChange}
+				value={inputValue.password}
+			/>
+			<Button mb='3' mt={2} width='100%' height='36px' type='submit'>
+				{" "}
+				Log in
+			</Button>
+			<Flex justifyContent='center' fontSize='9pt'>
+				<Text mr={2}>New here?</Text>
+				<Text
+					fontWeight={700}
+					color='blue.500'
+					cursor='pointer'
+					onClick={() => {
+						setAuthModalState((prev) => ({ ...prev, view: "signup" }));
+					}}
+				>
+					SIGN UP
+				</Text>
+			</Flex>
+		</form>
+	);
+};
+export default Login;

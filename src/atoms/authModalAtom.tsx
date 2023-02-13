@@ -3,7 +3,7 @@ import { atom } from "recoil";
 
 export interface authModalType {
     open: boolean;
-    view:'login'|'signup'
+    view?:'login'|'signup' |'resetpassword'
 }
 
 const initialState: authModalType = {
