@@ -1,7 +1,10 @@
 import { AuthModalState } from "@/atoms/authModalAtom";
+import { auth } from "@/firebase/app";
 import { Input, Button, Flex, Text } from "@chakra-ui/react";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useSetRecoilState } from "recoil";
+import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth'
+import { FIREBASE_ERRORS } from "@/firebase/firestoreErrors";
 
 const Signup: React.FC = () => {
 	const setAuthModalState = useSetRecoilState(AuthModalState);
@@ -10,6 +13,17 @@ const Signup: React.FC = () => {
 		password: "",
 		confirmPassword: "",
 	});
+	const [errors, setErrors] = useState({
+		formErrors: '',
+		userErrors:''
+	})
+
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useCreateUserWithEmailAndPassword(auth);
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setInputValue((prev) => ({
@@ -18,7 +32,25 @@ const Signup: React.FC = () => {
 		}));
 	};
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {};
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		setErrors({formErrors:'', userErrors:''})
+		
+		if (inputValue.password !== inputValue.confirmPassword) {
+			return setErrors((prev) => ({
+				...prev,
+				formErrors: 'passwords do not match',
+			}))
+		}
+
+	await	createUserWithEmailAndPassword(inputValue.email, inputValue.password)
+		if (error) {
+			setErrors({
+				formErrors:'',
+				userErrors: FIREBASE_ERRORS[error.message]
+			})
+		}
+    };
 
 	return (
 		<form onSubmit={handleSubmit}>
@@ -96,7 +128,10 @@ const Signup: React.FC = () => {
 				onChange={handleChange}
 				value={inputValue.confirmPassword}
 			/>
-			<Button mb='3' mt={2} width='100%' height='36px' type='submit'>
+			<Text color='red.500' textAlign='center' my='2' fontSize='9pt'>
+				{errors.formErrors || errors.userErrors }
+			</Text>
+			<Button mb='3' mt={2} width='100%' height='36px' type='submit' isLoading={loading}>
 				{" "}
 				Log in
 			</Button>

@@ -10,6 +10,7 @@ import {
 	ModalFooter,
 	useDisclosure,
     Flex,
+    Text
 } from "@chakra-ui/react";
 import React from "react";
 import { useRecoilState } from "recoil";
@@ -42,6 +43,7 @@ const AuthModal: React.FC = () => {
                     <ModalBody display='flex' alignItems='center' justifyContent='center' width='100%' mt={4}>
                         <Flex align='center' direction='column' justify='center' width='70%'>
                             <AuthButtons />
+                            <Text my='3' fontWeight={700} textColor='gray.500'> OR </Text>
                             <AuthInput/>
                         </Flex>
                         

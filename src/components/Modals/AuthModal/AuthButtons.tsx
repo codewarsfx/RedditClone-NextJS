@@ -6,7 +6,7 @@ import React from 'react';
 const AuthButtons:React.FC = () => {
     
     return (
-        <Button variant='oauth' width='100%' mb='3'>
+        <Button variant='oauth' width='100%' >
             <Image src='images/googlelogo.png' alt='google logo' height='20px' mr='4'/>
             Get started with Google
         </Button>
