@@ -12,17 +12,14 @@ const Signup: React.FC = () => {
 		email: "",
 		password: "",
 		confirmPassword: "",
-	});
-	const [errors, setErrors] = useState({
-		formErrors: '',
-		userErrors:''
 	})
+	const [errors, setErrors] = useState('')
 
     const [
         createUserWithEmailAndPassword,
-        user,
+        _,
         loading,
-        error,
+        autherror,
       ] = useCreateUserWithEmailAndPassword(auth);
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -34,22 +31,15 @@ const Signup: React.FC = () => {
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		setErrors({formErrors:'', userErrors:''})
+		setErrors('')
 		
 		if (inputValue.password !== inputValue.confirmPassword) {
-			return setErrors((prev) => ({
-				...prev,
-				formErrors: 'passwords do not match',
-			}))
+			return setErrors ('passwords do not match')
+			
 		}
 
-	await	createUserWithEmailAndPassword(inputValue.email, inputValue.password)
-		if (error) {
-			setErrors({
-				formErrors:'',
-				userErrors: FIREBASE_ERRORS[error.message]
-			})
-		}
+	createUserWithEmailAndPassword(inputValue.email, inputValue.password)
+
     };
 
 	return (
@@ -129,7 +119,7 @@ const Signup: React.FC = () => {
 				value={inputValue.confirmPassword}
 			/>
 			<Text color='red.500' textAlign='center' my='2' fontSize='9pt'>
-				{errors.formErrors || errors.userErrors }
+				{errors || FIREBASE_ERRORS[autherror?.message as keyof typeof FIREBASE_ERRORS] }
 			</Text>
 			<Button mb='3' mt={2} width='100%' height='36px' type='submit' isLoading={loading}>
 				{" "}
