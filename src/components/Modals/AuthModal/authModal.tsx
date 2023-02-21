@@ -53,7 +53,6 @@ const AuthModal: React.FC = () => {
                             <Text my='3' fontWeight={700} textColor='gray.500'> OR </Text>
                             <AuthInput/>
                         </Flex>
-                        
                     </ModalBody>
 				</ModalContent>
 			</Modal>
