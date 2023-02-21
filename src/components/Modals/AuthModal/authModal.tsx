@@ -1,16 +1,13 @@
 import { AuthModalState } from "@/atoms/authModalAtom";
 import { auth } from "@/firebase/app";
 import {
-	Button,
+	Flex,
 	Modal,
-	ModalOverlay,
+	ModalBody,
+	ModalCloseButton,
 	ModalContent,
 	ModalHeader,
-	ModalCloseButton,
-	ModalBody,
-	ModalFooter,
-	useDisclosure,
-	Flex,
+	ModalOverlay,
 	Text,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
@@ -64,9 +61,8 @@ const AuthModal: React.FC = () => {
 								<>
 									<AuthButtons />
 									<Text my='3' fontWeight={700} textColor='gray.500'>
-										{" "}
-										OR{" "}
-									</Text>{" "}
+										OR
+									</Text>
 								</>
 							)}
 							<AuthInput />
