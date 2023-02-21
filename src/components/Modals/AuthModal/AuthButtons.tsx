@@ -1,15 +1,33 @@
-import { Button, Image } from '@chakra-ui/react';
-import React from 'react';
+import { auth } from "@/firebase/app";
+import { Button, Image, Text } from "@chakra-ui/react";
+import React from "react";
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 
-
-
-const AuthButtons:React.FC = () => {
+const AuthButtons: React.FC = () => {
+	const [signInWithGoogle, _, loading, autherror] =
+        useSignInWithGoogle(auth);
     
-    return (
-        <Button variant='oauth' width='100%' >
-            <Image src='images/googlelogo.png' alt='google logo' height='20px' mr='4'/>
-            Get started with Google
-        </Button>
-    )
-}
+    const handleClick = () => {
+        signInWithGoogle()
+    }
+
+	return (
+		<>
+			<Button onClick={()=>handleClick()} variant='oauth' width='100%' isLoading={loading}>
+				<Image
+					src='images/googlelogo.png'
+					alt='google logo'
+					height='20px'
+					mr='4'
+				/>
+				Get started with Google
+			</Button>
+			{autherror && (
+				<Text fontSize='10pt' mt='1' color='red'>
+					{autherror.message}
+				</Text>
+			)}
+		</>
+	);
+};
 export default AuthButtons;
