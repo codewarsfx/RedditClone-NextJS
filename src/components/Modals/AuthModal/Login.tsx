@@ -8,13 +8,9 @@ import { useSetRecoilState } from "recoil";
 
 const Login: React.FC = () => {
 	const setAuthModalState = useSetRecoilState(AuthModalState);
-	const [
-		signInWithEmailAndPassword,
-		user,
-		loading,
-		error,
-	] = useSignInWithEmailAndPassword(auth);
-	
+	const [signInWithEmailAndPassword, user, loading, error] =
+		useSignInWithEmailAndPassword(auth);
+
 	const [inputValue, setInputValue] = useState({
 		email: "",
 		password: "",
@@ -26,13 +22,11 @@ const Login: React.FC = () => {
 			[event.target.name]: event.target.value,
 		}));
 	};
-//j
+	//j
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
-		signInWithEmailAndPassword(inputValue.email, inputValue.password)
-
-
+		signInWithEmailAndPassword(inputValue.email, inputValue.password);
 	};
 
 	return (
@@ -87,12 +81,33 @@ const Login: React.FC = () => {
 				value={inputValue.password}
 			/>
 			<Text color='red.500' textAlign='center' my='2' fontSize='9pt'>
-				{error && FIREBASE_ERRORS[error.message as  keyof typeof FIREBASE_ERRORS]}
+				{error &&
+					FIREBASE_ERRORS[error.message as keyof typeof FIREBASE_ERRORS]}
 			</Text>
-			<Button mb='3' mt={2} width='100%' height='36px' type='submit' isLoading={loading}>
+			<Button
+				mb='3'
+				mt={2}
+				width='100%'
+				height='36px'
+				type='submit'
+				isLoading={loading}
+			>
 				{" "}
 				Log in
 			</Button>
+			<Flex justifyContent='center' fontSize='10pt' my={2}>
+				<Text  mr={2}>Forgot Password?</Text>
+				<Text
+					fontSize='9pt'
+					color='blue.500'
+					cursor='pointer'
+					onClick={() => {
+						setAuthModalState((prev) => ({ ...prev, view: "resetpassword" }));
+					}}
+				>
+					Reset
+				</Text>
+			</Flex>
 			<Flex justifyContent='center' fontSize='9pt'>
 				<Text mr={2}>New here?</Text>
 				<Text

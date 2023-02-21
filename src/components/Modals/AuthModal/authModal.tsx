@@ -10,8 +10,8 @@ import {
 	ModalBody,
 	ModalFooter,
 	useDisclosure,
-    Flex,
-    Text
+	Flex,
+	Text,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -33,8 +33,8 @@ const AuthModal: React.FC = () => {
 	};
 
 	useEffect(() => {
-		handleClose()
-	},[user])
+		handleClose();
+	}, [user]);
 
 	return (
 		<>
@@ -47,13 +47,31 @@ const AuthModal: React.FC = () => {
 						{modal.view === "resetpassword" && "Reset Password"}
 					</ModalHeader>
 					<ModalCloseButton />
-                    <ModalBody display='flex' alignItems='center' justifyContent='center' width='100%' mt={4}>
-                        <Flex align='center' direction='column' justify='center' width='70%'>
-                            <AuthButtons />
-                            <Text my='3' fontWeight={700} textColor='gray.500'> OR </Text>
-                            <AuthInput/>
-                        </Flex>
-                    </ModalBody>
+					<ModalBody
+						display='flex'
+						alignItems='center'
+						justifyContent='center'
+						width='100%'
+						mt={4}
+					>
+						<Flex
+							align='center'
+							direction='column'
+							justify='center'
+							width='70%'
+						>
+							{!(modal.view === "resetpassword") && (
+								<>
+									<AuthButtons />
+									<Text my='3' fontWeight={700} textColor='gray.500'>
+										{" "}
+										OR{" "}
+									</Text>{" "}
+								</>
+							)}
+							<AuthInput />
+						</Flex>
+					</ModalBody>
 				</ModalContent>
 			</Modal>
 		</>
