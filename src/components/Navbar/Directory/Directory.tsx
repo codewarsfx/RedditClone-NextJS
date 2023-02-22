@@ -26,7 +26,9 @@ const Directory: React.FC<DirectoryProps> = () => {
 					<ChevronDownIcon color='gray.500' />
 				</Flex>
 			</MenuButton>
-			<MenuList></MenuList>
+            <MenuList>
+                <AddCommunities/>
+            </MenuList>
 		</Menu>
 	);
 };
