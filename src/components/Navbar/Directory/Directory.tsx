@@ -27,7 +27,7 @@ const Directory: React.FC<DirectoryProps> = () => {
 				</Flex>
 			</MenuButton>
             <MenuList>
-                <AddCommumnities/>
+                <AddCommummnities/>
             </MenuList>
 		</Menu>
 	);
